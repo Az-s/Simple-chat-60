@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
 
 const CommentsSide = (props) => {
     return (
@@ -31,9 +30,9 @@ const CommentsSide = (props) => {
                                     alignItems="center"
                                     key={key}
                                 >
-                                    <Paper component={Box} m={0.2} p={0.2}>
-                                     <strong>{msg.author}</strong>  send message: <strong>{msg.message}</strong> Time:{msg.datetime}
-                                    </Paper>
+                                    <div style={{ padding: '2px' , color: '#183b54'}}>
+                                        <strong>{msg.author}</strong>  send message: <strong>{msg.message}</strong>
+                                    </div>
                                 </Grid>
                             ))
                         }

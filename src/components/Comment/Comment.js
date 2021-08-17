@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -19,6 +19,27 @@ const useStyles = makeStyles((theme) => ({
 
 const Comment = (props) => {
     const classes = useStyles();
+
+    const [message, setMessage] = useState(null);
+    const [author, setAuthor] = useState(null);
+
+    const updateMessage = (event) => {
+        const message = event.target.value;
+        setMessage(message);
+    };
+
+    const updateAuthor = (event) => {
+        const author = event.target.value;
+        setAuthor(author);
+    };
+
+    const submitForm = (event) => {
+        event.preventDefault();
+        if (message && author) {
+            props.createPost({ message: message, author: author });
+        }
+    };
+
     return (
         <>
             <CssBaseline />
@@ -31,20 +52,22 @@ const Comment = (props) => {
                         alignItems="center"
                         component={Box} py={10}
                     >
-                        <form className={classes.root} noValidate autoComplete="off">
+                        <form className={classes.root} noValidate autoComplete="off" onSubmit={event => submitForm(event)}>
                             <TextField
-                                id="outlined-secondary"
-                                label="Login"
+                                id="author"
+                                label="Author"
                                 variant="outlined"
                                 color="primary"
+                                onChange={(event) => updateAuthor(event)}
                             />
                             <TextField
-                                id="outlined-secondary"
-                                label="Comment"
+                                id="message"
+                                label="Message"
                                 variant="outlined"
                                 color="primary"
+                                onChange={(event) => updateMessage(event)}
                             />
-                            <Button variant="contained" size="medium"  style={{ backgroundColor: '#cfe8fc', padding: '15px'}} onClick={props.onClick}>
+                            <Button variant="contained" size="medium" style={{ backgroundColor: '#cfe8fc', padding: '15px' }} type='submit'>
                                 Send
                             </Button>
                         </form>

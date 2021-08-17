@@ -11,7 +11,6 @@ const url = 'http://146.185.154.90:8000/messages';
 const App = () => {
 
   const [post, setPost] = useState([]);
-  const [sendPost, setSendPost] = useState({});
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const App = () => {
 
     const id = setInterval(() => {
       fetchData();
-    }, 2000);
+    }, 1000);
 
     fetchData();
 
@@ -43,14 +42,14 @@ const App = () => {
 
 
 
-  const createPost = async () => {
+  const createPost = async (formData) => {
     try {
       const data = new URLSearchParams();
-      data.set('author', 'John Doe');
-      data.set('message', 'Hello!');
-      
-      const response = await axios.post(url , data);
-      
+      data.set('message', formData.message);
+      data.set('author', formData.author);
+
+      const response = await axios.post(url, data);
+
       console.log(response.data)
     } catch (e) {
       console.log(e.response);
@@ -66,7 +65,7 @@ const App = () => {
       <Navbar />
       <div className='main'>
         <Comment
-          onClick={createPost}
+          createPost={createPost}
         />
         <CommentsSide
           error={error}
